@@ -3,3 +3,6 @@ module.exports = function(app) {
     res.send(['waterbottle', 'phone', 'paper']);
   });
 }
+// app.requesttype('route', function(req, res,next) {
+//     res.send(data);
+// });

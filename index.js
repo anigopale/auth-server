@@ -3,16 +3,17 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const app = express();
+const app = express(); //create express app
 const router = require('./router');
 
 // App setup
-app.use(morgan('combined'));
-app.use(bodyParser.json({ type: '*/*' }));
+//middlewares, morgan and bodyParser
+app.use(morgan('combined')); //does the logging of requests in terminal
+app.use(bodyParser.json({ type: '*/*' })); //parses requests into JSON
 router(app);
 
 // Server Setup
-const port = process.env.PORT || 3090;
-const server = http.createServer(app);
+const port = process.env.PORT || 3090;  //localhost
+const server = http.createServer(app); //create http server, adds functionalities to app
 server.listen(port);
 console.log('server listening on:', port);
