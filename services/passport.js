@@ -8,9 +8,15 @@ const LocalStrategy = require('passport-local');
 // Create local strategy
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
-  // Verify this username and password, call done with the user
-  // if it is the correct username and password
+  // Verify this email and password, call done with the user
+  // if it is the correct email and password
   // otherwise, call done with false
+  User.findOne({ email: email }, function(err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false); }
+
+    
+  })
 });
 
 // Setup options for JWT Strategy
