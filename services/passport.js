@@ -21,8 +21,8 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
       if (!isMatch) { return done(null, false); }
 
       return done(null, user);
-    })
-  })
+    });
+  });
 });
 
 // Setup options for JWT Strategy
@@ -33,10 +33,10 @@ const jwtOptions = {
 
 // Create JWT strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
-  // See if user ID in the payload exists in the DB
-  // if it does, call 'done' with that user
+  // See if the user ID in the payload exists in our database
+  // If it does, call 'done' with that other
   // otherwise, call done without a user object
-  User.findById(payload.sub, function() {
+  User.findById(payload.sub, function(err, user) {
     if (err) { return done(err, false); }
 
     if (user) {
@@ -44,10 +44,9 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     } else {
       done(null, false);
     }
-
   });
 });
 
-//Tell passport to use this strategy
+// Tell passport to use this strategy
 passport.use(jwtLogin);
 passport.use(localLogin);

@@ -3,23 +3,22 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const app = express(); //create express app
+const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// DB setup
-mongoose.connect('mongodb://localhost:auth/auth'); //creates auth named DB in mongoDB
+// DB Setup
+mongoose.connect('mongodb://localhost:auth/auth');
 
-// App setup
-//middlewares, morgan and bodyParser
-app.use(morgan('combined')); //does the logging of requests in terminal
+// App Setup
+app.use(morgan('combined'));
 app.use(cors());
-app.use(bodyParser.json({ type: '*/*' })); //parses requests into JSON
+app.use(bodyParser.json({ type: '*/*' }));
 router(app);
 
 // Server Setup
-const port = process.env.PORT || 3090;  //localhost
-const server = http.createServer(app); //create http server, adds functionalities to app
+const port = process.env.PORT || 3090;
+const server = http.createServer(app);
 server.listen(port);
-console.log('server listening on:', port);
+console.log('Server listening on:', port);
