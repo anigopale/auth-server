@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const app = express(); //create express app
 const router = require('./router');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // DB setup
 mongoose.connect('mongodb://localhost:auth/auth'); //creates auth named DB in mongoDB
@@ -13,6 +14,7 @@ mongoose.connect('mongodb://localhost:auth/auth'); //creates auth named DB in mo
 // App setup
 //middlewares, morgan and bodyParser
 app.use(morgan('combined')); //does the logging of requests in terminal
+app.use(cors());
 app.use(bodyParser.json({ type: '*/*' })); //parses requests into JSON
 router(app);
 
